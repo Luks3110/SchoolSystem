@@ -1,0 +1,24 @@
+type Teacher {
+  # Example field (placeholder)
+  exampleField: Int
+}
+
+input CreateTeacherInput {
+  # Example field (placeholder)
+  exampleField: Int
+}
+
+input UpdateTeacherInput {
+  id: Int!
+}
+
+type Query {
+  teachers: [Teacher]!
+  teacher(id: Int!): Teacher
+}
+
+type Mutation {
+  createTeacher(createTeacherInput: CreateTeacherInput!): Teacher!
+  updateTeacher(updateTeacherInput: UpdateTeacherInput!): Teacher!
+  removeTeacher(id: Int!): Teacher
+}

@@ -1,0 +1,24 @@
+type ClasroomStudent {
+  # Example field (placeholder)
+  exampleField: Int
+}
+
+input CreateClasroomStudentInput {
+  # Example field (placeholder)
+  exampleField: Int
+}
+
+input UpdateClasroomStudentInput {
+  id: Int!
+}
+
+type Query {
+  clasroomStudents: [ClasroomStudent]!
+  clasroomStudent(id: Int!): ClasroomStudent
+}
+
+type Mutation {
+  createClasroomStudent(createClasroomStudentInput: CreateClasroomStudentInput!): ClasroomStudent!
+  updateClasroomStudent(updateClasroomStudentInput: UpdateClasroomStudentInput!): ClasroomStudent!
+  removeClasroomStudent(id: Int!): ClasroomStudent
+}

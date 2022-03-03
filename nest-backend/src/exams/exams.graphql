@@ -1,0 +1,24 @@
+type Exam {
+  # Example field (placeholder)
+  exampleField: Int
+}
+
+input CreateExamInput {
+  # Example field (placeholder)
+  exampleField: Int
+}
+
+input UpdateExamInput {
+  id: Int!
+}
+
+type Query {
+  exams: [Exam]!
+  exam(id: Int!): Exam
+}
+
+type Mutation {
+  createExam(createExamInput: CreateExamInput!): Exam!
+  updateExam(updateExamInput: UpdateExamInput!): Exam!
+  removeExam(id: Int!): Exam
+}

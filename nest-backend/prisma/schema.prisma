@@ -1,0 +1,98 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int        @id @default(autoincrement())
+  email     String     @unique
+  password String
+  name      String
+  cpf       String     @unique
+  phone     String?
+  student  Student?
+  teacher  Teacher?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now())
+}
+
+model Teacher{
+  id Int @id @default(autoincrement())
+  classes Classroom[]
+  userId Int
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Student{
+  id Int @id @default(autoincrement())
+  userId Int
+  user User @relation(fields: [userId], references: [id])
+  classroom Classroom_Student[]
+  exam_result Exam_Result[]
+  dateOfJoin DateTime
+  status Boolean
+}
+
+model Classroom_Student{
+  id Int @id @default(autoincrement())
+  classroomId Int
+  classroom Classroom @relation(fields: [classroomId], references: [id])
+  studentId Int
+  student Student @relation(fields: [studentId], references: [id])
+}
+
+model Classroom {
+  id Int @id @default(autoincrement())
+  year Int
+  grade_id Int
+  status Boolean
+  section String
+  classroom_students Classroom_Student[]
+  teacherId Int
+  teacher Teacher @relation(fields: [teacherId], references: [id])
+}
+
+model Grade{
+  id Int @id @default(autoincrement())
+  name String
+  description String
+  courses Course[]
+}
+
+model Course{
+  id Int @id @default(autoincrement())
+  name String
+  description String
+  grade_id Int
+  grade Grade @relation(fields: [grade_id], references: [id])
+  exam_result Exam_Result[]
+}
+
+model Exam{
+id Int @id @default(autoincrement())
+exam_typeId Int
+exam_type Exam_Type @relation(fields: [exam_typeId], references: [id])
+name String
+start_date DateTime
+}
+
+model Exam_Result{
+id Int @id @default(autoincrement())
+studentId Int
+student Student @relation(fields: [studentId], references: [id])
+courseId Int
+course Course @relation(fields: [courseId], references: [id])
+marks String
+observations String
+}
+
+model Exam_Type{
+  id Int @id @default(autoincrement())
+  exam Exam[]
+  name String
+  description String
+}
